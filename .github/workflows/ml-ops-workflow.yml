@@ -71,7 +71,7 @@ jobs:
         name: model-artifacts
         path: .
     - name: Build Docker image
-      run: docker build -t fraud-detection-app .
+      run:  docker build -f api/Dockerfile -t fraud-detection-app .
     - name: Deploy to VPS
       env:
         VPS_HOST: ${{ secrets.VPS_HOST }}
