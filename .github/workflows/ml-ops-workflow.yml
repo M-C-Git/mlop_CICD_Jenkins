@@ -22,6 +22,17 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+    - name: Inspect dataset
+      run: |
+        python - <<'PY'
+        import pandas as pd
+        import os, sys
+        p = 'data/creditcard.csv'
+        print('Exists:', os.path.exists(p), 'Size:', os.path.getsize(p) if os.path.exists(p) else 'NA')
+        df = pd.read_csv(p, nrows=5)
+        print('Columns:', df.columns.tolist())
+        print(df.head(2).to_string(index=False))
+        PY
     - name: Train and evaluate model
       env:
         DATA_PATH: ${{ github.workspace }}/data/creditcard.csv
